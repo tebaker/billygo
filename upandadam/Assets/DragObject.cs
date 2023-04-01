@@ -10,6 +10,7 @@ public class DragObject : MonoBehaviour
     public float maxSpeed = 10;
     Vector2 mouseForce;
     Vector3 lastPosition;
+
     void Update()
     {
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
