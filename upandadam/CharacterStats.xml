@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<character>
+	<difficulty_easy>
+		<!-- Default status of character on easy difficulty -->
+		<sleepiness></sleepiness>
+		<energy></energy>
+		<hunger></hunger>
+		<happiness></happiness>
+		<stress></stress>
+		<speed></speed>
+		<bladder_fullness></bladder_fullness>
+		<hygiene></hygiene>
+		<health></health>
+		<social_standing></social_standing>
+		<mental_health></mental_health>
+	</difficulty_easy>
+	<difficulty_medium>
+		<!-- Default status of character on medium difficulty -->
+		<sleepiness></sleepiness>
+		<energy></energy>
+		<hunger></hunger>
+		<happiness></happiness>
+		<stress></stress>
+		<speed></speed>
+		<bladder_fullness></bladder_fullness>
+		<hygiene></hygiene>
+		<health></health>
+		<social_standing></social_standing>
+		<mental_health></mental_health>
+	</difficulty_medium>
+	<difficulty_hard>
+		<!-- Default status of character on hard difficulty -->
+		<sleepiness></sleepiness>
+		<energy></energy>
+		<hunger></hunger>
+		<happiness></happiness>
+		<stress></stress>
+		<speed></speed>
+		<bladder_fullness></bladder_fullness>
+		<hygiene></hygiene>
+		<health></health>
+		<social_standing></social_standing>
+		<mental_health></mental_health>
+	</difficulty_hard>
+	<difficulty_extreme>
+		<!-- Default status of character on extreme difficulty -->
+		<sleepiness></sleepiness>
+		<energy></energy>
+		<hunger></hunger>
+		<happiness></happiness>
+		<stress></stress>
+		<speed></speed>
+		<bladder_fullness></bladder_fullness>
+		<hygiene></hygiene>
+		<health></health>
+		<social_standing></social_standing>
+		<mental_health></mental_health>
+	</difficulty_extreme>
+</character>

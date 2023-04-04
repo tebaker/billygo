@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<items_list>
+	<consumable>
+		<!-- Sprite location for consumable items -->
+		<sprite_location></sprite_location>
+
+		<item>
+			<!-- Item-general -->
+			<name></name>
+			<description></description>
+			<id></id>
+			<mass></mass>
+			<can_break></can_break>
+			<time_to_complete></time_to_complete>
+
+			<!-- Effects on character -->
+			<sleepiness></sleepiness>
+			<energy></energy>
+			<hunger></hunger>
+			<happiness></happiness>
+			<stress></stress>
+			<speed></speed>
+			<bladder_fullness></bladder_fullness>
+			<hygiene></hygiene>
+			<health></health>
+			<social_standing></social_standing>
+			<mental_health></mental_health>
+
+			<!-- Consumable-specific -->
+			<current_temp></current_temp>
+			<optimal_temp></optimal_temp>
+			<acceptable_range></acceptable_range>
+			<temp_dropoff></temp_dropoff>
+		</item>
+	</consumable>
+	<non_consumable>
+		<!-- Sprite location for consumable items -->
+		<sprite_location></sprite_location>
+		<item>
+			<!-- Item-general -->
+			<name></name>
+			<id></id>
+			<mass></mass>
+			<can_break></can_break>
+			<time_to_complete></time_to_complete>
+
+			<!-- Effects on character -->
+			<sleepiness></sleepiness>
+			<energy></energy>
+			<hunger></hunger>
+			<happiness></happiness>
+			<stress></stress>
+			<speed></speed>
+			<bladder_fullness></bladder_fullness>
+			<hygiene></hygiene>
+			<health></health>
+			<social_standing></social_standing>
+			<mental_health></mental_health>
+		</item>
+	</non_consumable>
+</items_list>
