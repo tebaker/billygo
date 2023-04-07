@@ -1,61 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <items_list>
-	<consumable>
-		<!-- Sprite location for consumable items -->
-		<sprite_location></sprite_location>
+	<!-- Sprite location for consumable items -->
+	<sprite_location>C:\temp\sprites\consumable\</sprite_location> <!-- Sprite location will be location + name.png -->
+	<item>
+		<!-- Item-general -->
+		<name>Bacon</name>
+		<description>A delicious, nutritious piece of crispy fried bacon.</description>
+		<id>001</id>
+		<mass>13</mass> <!-- In grams -->
+		<can_break>NO</can_break>
+		<time_to_complete_task>2500</time_to_complete_task> <!-- In milliseconds -->
 
-		<item>
-			<!-- Item-general -->
-			<name></name>
-			<description></description>
-			<id></id>
-			<mass></mass>
-			<can_break></can_break>
-			<time_to_complete></time_to_complete>
+		<!-- Effects on character; positive increases effect, negative decreases effect -->
+		<sleepiness>-0.01</sleepiness>
+		<energy>0.05</energy>
+		<hunger>-0.1</hunger>
+		<happiness>0.05</happiness>
+		<stress>-0.05</stress>
+		<speed>0.01</speed>
+		<bladder_fullness>0.0</bladder_fullness>
+		<hygiene>-0.005</hygiene>
+		<health>-0.01</health>
+		<social_standing>0.0</social_standing>
+		<mental_health>0.0</mental_health>
 
-			<!-- Effects on character -->
-			<sleepiness></sleepiness>
-			<energy></energy>
-			<hunger></hunger>
-			<happiness></happiness>
-			<stress></stress>
-			<speed></speed>
-			<bladder_fullness></bladder_fullness>
-			<hygiene></hygiene>
-			<health></health>
-			<social_standing></social_standing>
-			<mental_health></mental_health>
-
-			<!-- Consumable-specific -->
-			<current_temp></current_temp>
-			<optimal_temp></optimal_temp>
-			<acceptable_range></acceptable_range>
-			<temp_dropoff></temp_dropoff>
-		</item>
-	</consumable>
-	<non_consumable>
-		<!-- Sprite location for consumable items -->
-		<sprite_location></sprite_location>
-		<item>
-			<!-- Item-general -->
-			<name></name>
-			<id></id>
-			<mass></mass>
-			<can_break></can_break>
-			<time_to_complete></time_to_complete>
-
-			<!-- Effects on character -->
-			<sleepiness></sleepiness>
-			<energy></energy>
-			<hunger></hunger>
-			<happiness></happiness>
-			<stress></stress>
-			<speed></speed>
-			<bladder_fullness></bladder_fullness>
-			<hygiene></hygiene>
-			<health></health>
-			<social_standing></social_standing>
-			<mental_health></mental_health>
-		</item>
-	</non_consumable>
+		<!-- Consumable-specific -->
+		<current_temp>0.0</current_temp>
+		<optimal_temp>150.0</optimal_temp>
+		<acceptable_range>20.0</acceptable_range>
+		<temp_dropoff>1.0</temp_dropoff> <!-- In degrees F per second -->
+	</item>
 </items_list>
