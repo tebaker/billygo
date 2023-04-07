@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,21 +34,51 @@ namespace WpfApp1
         // Mass, weight of item
         public double Mass { get; private set; }
 
-        // Sprite of the item; from public location + name of item
-        //public Sprite ItemSprite { get; private set; }
-
-        // Information on what the item can do
         // If the item can break
         public bool CanBreak { get; private set; }
 
-        // Informatoin relating to item task
         // Time required to complete task
-        public int TimeToComplete { get; private set; }
+        public int TimeToCompleteTask { get; private set; }
 
-        // Location where character is required to complete task; null if can be complete anywhere.
-        //public Loc LocationOfTask { get; private set; }
+        // The following holds the effect on the player stats
+        public IDictionary<string, double> StatsInteractions { get; private set; }
 
-        // Holding information on how item affects character stats after task complete
+        // Default constructor
+        public Item()
+        {
+            this.StatsInteractions = new Dictionary<string, double>();
+        }
 
+        // Setter Methods
+        public void SetName(string name)
+        {
+            this.Name = name;
+        }
+        public void SetDescription(string description)
+        {
+            this.Description = description;
+        }
+        public void SetID(int id)
+        {
+            this.ID = id;
+        }
+        public void SetMass(double mass)
+        {
+            this.Mass = mass;
+        }
+        public void SetCanBreak(bool canBreak)
+        {
+            this.CanBreak = canBreak;
+        }
+        public void SetTimeToCompleteTask(int timeToCompleteTask)
+        {
+            this.TimeToCompleteTask = timeToCompleteTask;
+        }
+
+        // Modifier Methods
+        public void AddStatsInteractions(string statName, double interactionAmount)
+        {
+            this.StatsInteractions.Add(new KeyValuePair<string, double>(statName, interactionAmount));
+        }
     }
 }
