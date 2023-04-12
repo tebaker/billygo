@@ -122,6 +122,113 @@ namespace WpfApp1
             }
         }
 
+        public void PopulateCharacterDataFromXml(ref Character character)
+        {
+            // Helper to parse XML data
+            XmlTextReader reader = new XmlTextReader(this.FilePath);
+
+            // Flags for specific stat information
+            bool inEasy = false;
+            bool inMedium = false;
+            bool inHard = false;
+            bool inExtreme = false;
+            bool inSpriteLocation = false;
+
+            string spriteLoc = string.Empty;
+            string holdTagName = string.Empty;
+
+            while (reader.Read())
+            {
+                switch (reader.NodeType)
+                {
+                    // If the case node type is an opening tag
+                    case XmlNodeType.Element:
+                        // Setting flags to help build items
+                        if (reader.Name == "difficulty_easy")
+                        {
+                            inEasy = true;
+                        }
+                        else if (reader.Name == "difficulty_medium")
+                        {
+                            inMedium = true;
+                        }
+                        else if (reader.Name == "difficulty_hard")
+                        {
+                            inHard = true;
+                        }
+                        else if (reader.Name == "difficulty_extreme")
+                        {
+                            inExtreme = true;
+                        }
+                        else if (reader.Name == "sprite_location")
+                        {
+                            inSpriteLocation = true;
+                        }
+
+                        // Holding tag name for properly populating item information
+                        holdTagName = reader.Name;
+
+                        break;
+                    case XmlNodeType.Text: //Display the text in each element.
+                        string hald = holdTagName;
+                        string hold = reader.Value;
+
+                        // If in item element, create item
+                        if (inSpriteLocation)
+                        {
+                            spriteLoc = reader.Value;
+                            //Console.WriteLine("Sprite Location: " + spriteLoc);
+                        }
+                        else
+                        {
+                            if (inEasy)
+                            {
+                                character.SetDefaultDifficultyStats("difficulty_easy", holdTagName, Double.Parse(reader.Value));
+                            }
+                            else if (inMedium)
+                            {
+                                character.SetDefaultDifficultyStats("difficulty_medium", holdTagName, Double.Parse(reader.Value));
+                            }
+                            else if (inHard)
+                            {
+                                character.SetDefaultDifficultyStats("difficulty_hard", holdTagName, Double.Parse(reader.Value));
+                            }
+                            else if (inExtreme)
+                            {
+                                character.SetDefaultDifficultyStats("difficulty_extreme", holdTagName, Double.Parse(reader.Value));
+                            }
+                        }
+
+                        break;
+                    case XmlNodeType.EndElement: //Display the end of the element.
+                        // Resetting flags once items have been created
+                        // Setting flags to help build items
+                        if (reader.Name == "difficulty_easy")
+                        {
+                            inEasy = false;
+                        }
+                        else if (reader.Name == "difficulty_medium")
+                        {
+                            inMedium = false;
+                        }
+                        else if (reader.Name == "difficulty_hard")
+                        {
+                            inHard = false;
+                        }
+                        else if (reader.Name == "difficulty_extreme")
+                        {
+                            inExtreme = false;
+                        }
+                        else if (reader.Name == "sprite_location")
+                        {
+                            inSpriteLocation = false;
+                        }
+
+                        break;
+                }
+            }
+        }
+
         public void PopulateItemDataFromXml(ref IDictionary<string, Item> itemDict)
         {
             // Helper to parse XML data
