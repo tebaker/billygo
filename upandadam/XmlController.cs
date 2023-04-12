@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,21 +14,115 @@ namespace WpfApp1
     /// </summary>
     class XmlController
     {
-        public string FilePath { get; set; }
+        const string MASTER_PATH = "SET PATH TO DATA FILES";
+
+        public string FilePath { get; private set; }
 
         // Default Constructor
         public XmlController()
         {
             this.FilePath = string.Empty;
         }
-
+        
         // Overloaded Constructor
         public XmlController(string filePath)
         {
             this.FilePath = filePath;
         }
 
-        public void PopulateItemDetailsFromXml(ref IDictionary<string, Item> itemDict)
+        public void SetFilePath(string filePath)
+        {
+            this.FilePath = filePath;
+        }
+
+        /// <summary>
+        /// Populating graph data from a XML file of connections
+        /// </summary>
+        /// <param name="graph"></param>
+        public void PopulateGraphDataFromXml(ref Graph graph)
+        {
+            // Helper to parse XML data
+            XmlTextReader reader = new XmlTextReader(this.FilePath);
+
+            // Flags for specific item information
+            bool inNode = false;
+            bool inSpriteLocation = false;
+
+            string spriteLoc = string.Empty;
+            string holdTagName = string.Empty;
+
+            Node holdNode = new Node();
+
+            while (reader.Read())
+            {
+                switch (reader.NodeType)
+                {
+                    // If the case node type is an opening tag
+                    case XmlNodeType.Element:
+                        // Setting flags to help build items
+                        if (reader.Name == "node")
+                        {
+                            inNode = true;
+                            holdNode = new Node();
+                        }
+                        else if (reader.Name == "sprite_location")
+                        {
+                            inSpriteLocation = true;
+                        }
+
+                        // Holding tag name for properly populating item information
+                        holdTagName = reader.Name;
+
+                        break;
+                    case XmlNodeType.Text: //Display the text in each element.
+                        // If in item element, create item
+                        if (inSpriteLocation)
+                        {
+                            spriteLoc = reader.Value;
+                            //Console.WriteLine("Sprite Location: " + spriteLoc);
+                        }
+                        else if (inNode)
+                        {
+                            switch (holdTagName)
+                            {
+                                case "name":
+                                    holdNode.SetName(reader.Value);
+                                    break;
+                                case "neighbors":
+                                    // Splitting string on command and setting to neighbors array
+                                    holdNode.SetNeighbors(reader.Value.Split(','));
+                                    break;
+                                // Default case
+                                default:
+                                    break;
+                            }
+
+                            //Console.WriteLine("Adding:" + holdTagName + ": " + reader.Value);
+                        }
+
+                        break;
+                    case XmlNodeType.EndElement: //Display the end of the element.
+                        // Resetting flags once items have been created
+                        if (reader.Name == "node")
+                        {
+                            // Resetting item flag and adding item to item dictionary
+                            inNode = false;
+
+                            // Adding item key as item name and value as item
+                            graph.AddNewNode(holdNode);
+
+                        }
+                        else if (reader.Name == "sprite_location")
+                        {
+                            inSpriteLocation = false;
+                        }
+
+                        break;
+                }
+            }
+        }
+
+        public void PopulateItemDataFromXml(ref IDictionary<string, Item> itemDict)
         {
             // Helper to parse XML data
             XmlTextReader reader = new XmlTextReader(this.FilePath);
