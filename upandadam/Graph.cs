@@ -6,54 +6,6 @@ using System.Threading.Tasks;
 
 namespace WpfApp1
 {
-    class Node
-    {
-        public string Name { get; private set; }
-
-        public double X { get; private set; }
-        public double Y { get; private set; }
-
-        public IDictionary<string, double> NeighborsWeights { get; private set; }
-
-        public Node()
-        {
-            this.Name = string.Empty;
-            this.X = Double.NaN;
-            this.Y = Double.NaN;
-
-            this.NeighborsWeights = new Dictionary<string, double>();
-        }
-
-        public void SetName(string name)
-        {
-            this.Name = name;
-        }
-        public void SetX(double x)
-        {
-            this.X = x;
-        }
-        public void SetY(double y)
-        {
-            this.Y = y;
-        }
-        public void SetNeighbors(string[] neighborsArray)
-        {
-            foreach(string neighbor in neighborsArray)
-            {
-                this.NeighborsWeights.Add(new KeyValuePair<string, double>(neighbor, 0.0));
-            }
-        }
-
-        public void Print()
-        {
-            Console.WriteLine(this.Name);
-            foreach(KeyValuePair<string, double> kvp in NeighborsWeights)
-            {
-                Console.WriteLine("\t- " + kvp.Key + ": " + kvp.Value);
-            }
-        }
-    }
-
     class Graph
     {
         public IDictionary<string, Node> Connections { get; private set; }
@@ -78,7 +30,17 @@ namespace WpfApp1
 
         public double CalcEdgeCost(Node node1, Node node2)
         {
-            return Math.Sqrt(Math.Pow((node1.X - node2.X), 2) + Math.Pow((node1.Y - node2.Y), 2));
+            // If edge cost has been set, return
+            if (node1.NeighborsWeights[node2.Name] == Double.NaN)
+            {
+                // Calculating -- setting both directions to cost
+                double holdCost = Math.Sqrt(Math.Pow((node1.X - node2.X), 2) + Math.Pow((node1.Y - node2.Y), 2));
+                node1.NeighborsWeights[node2.Name] = holdCost;
+                node2.NeighborsWeights[node1.Name] = holdCost;
+            }
+
+            // Returning calculated edge cost
+            return node1.NeighborsWeights[node2.Name];
         }
 
         public void Print()
