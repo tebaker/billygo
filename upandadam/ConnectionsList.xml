@@ -15,7 +15,7 @@
 	</node>
 	<node>
 		<name>kitchen_door</name>
-		<neighbors>frig,table,stove</neighbors>
+		<neighbors>frig,table,stove,ladder_bottom</neighbors>
 	</node>
 	<node>
 		<name>ladder_bottom</name>
