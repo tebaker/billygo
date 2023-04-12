@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +13,16 @@ namespace WpfApp1
         public double X { get; private set; }
         public double Y { get; private set; }
 
-        public string[] Neighbors { get; private set; }
+        public IDictionary<string, double> NeighborsWeights { get; private set; }
+
+        public Node()
+        {
+            this.Name = string.Empty;
+            this.X = Double.NaN;
+            this.Y = Double.NaN;
+
+            this.NeighborsWeights = new Dictionary<string, double>();
+        }
 
         public void SetName(string name)
         {
@@ -29,23 +38,25 @@ namespace WpfApp1
         }
         public void SetNeighbors(string[] neighborsArray)
         {
-            this.Neighbors = new string[neighborsArray.Length];
-            this.Neighbors = neighborsArray;
+            foreach(string neighbor in neighborsArray)
+            {
+                this.NeighborsWeights.Add(new KeyValuePair<string, double>(neighbor, 0.0));
+            }
         }
+
         public void Print()
         {
             Console.WriteLine(this.Name);
-            foreach(string neighbor in Neighbors)
+            foreach(KeyValuePair<string, double> kvp in NeighborsWeights)
             {
-                Console.WriteLine("\t- " + neighbor);
+                Console.WriteLine("\t- " + kvp.Key + ": " + kvp.Value);
             }
         }
     }
 
-
     class Graph
     {
-        IDictionary<string, Node> Connections;
+        public IDictionary<string, Node> Connections { get; private set; }
 
         public Graph()
         {
@@ -54,10 +65,18 @@ namespace WpfApp1
 
         public void AddNewNode(Node newNode)
         {
-            this.Connections.Add(new KeyValuePair<string, Node>(newNode.Name, newNode));
+            // If graph alreacy contains key, update; if not, add
+            if (this.Connections.ContainsKey(newNode.Name))
+            {
+                this.Connections[newNode.Name] = newNode;
+            }
+            else
+            {
+                this.Connections.Add(new KeyValuePair<string, Node>(newNode.Name, newNode));
+            }
         }
 
-        public double CalcDistFrom(Node node1, Node node2)
+        public double CalcEdgeCost(Node node1, Node node2)
         {
             return Math.Sqrt(Math.Pow((node1.X - node2.X), 2) + Math.Pow((node1.Y - node2.Y), 2));
         }
