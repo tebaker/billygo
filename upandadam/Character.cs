@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,52 +6,85 @@ using System.Threading.Tasks;
 
 namespace WpfApp1
 {
+    enum Difficulty
+    {
+        Easy = 0,
+        Medium = 1,
+        Hard = 2,
+        Extreme = 3
+    }
+
+    /// <summary>
+    /// Character class will hold the default stats for difficulty level
+    /// as well as current stats for character in-progress.
+    /// </summary>
     class Character
     {
-        // Dictionaty of character stats and their default values
-        public IDictionary<string, double> Stats { get; private set; }
+        // Dictionaty of character stats and values for difficulty levels
+        public IDictionary<string, double> DefaultStatsEasy { get; private set; }
+        public IDictionary<string, double> DefaultStatsMedium { get; private set; }
+        public IDictionary<string, double> DefaultStatsHard { get; private set; }
+        public IDictionary<string, double> DefaultStatsExtreme { get; private set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sleepiness">Effects ability to take up and preform tasks quickly</param>
-        /// <param name="energy">Effects ability overall health, curbed by consumables</param>
-        /// <param name="hunger">Effects stress and overall health</param>
-        /// <param name="happiness">Effects mental health and overall stats</param>
-        /// <param name="stress">Effects all stats</param>
-        /// <param name="speed">Effects how quickly the character moves and preforms tasks</param>
-        /// <param name="bladderFullness">How badly the character needs to pee</param>
-        /// <param name="hygiene">Affected by player showers and effects social standing</param>
-        /// <param name="health">Overall health of the character</param>
-        /// <param name="socialStanding">How the character is seen outside the appartment</param>
-        /// <param name="mentalHealth">Overall mental health of the character</param>
-        public Character(
-            double sleepiness,
-            double energy,
-            double hunger,
-            double happiness,
-            double stress,
-            double speed,
-            double bladderFullness,
-            double hygiene,
-            double health,
-            double socialStanding,
-            double mentalHealth)
+        // Stats for the current character
+        public IDictionary<string, double> CurrentStats { get; private set; }
+
+        // Queue for holding current list of item tasks
+        public Queue<Task> ItemTaskQueue { get; private set; }
+
+        public Character()
         {
-            this.Stats = new Dictionary<string, double>()
+            this.DefaultStatsEasy = new Dictionary<string, double>();
+            this.DefaultStatsMedium = new Dictionary<string, double>();
+            this.DefaultStatsHard = new Dictionary<string, double>();
+            this.DefaultStatsExtreme = new Dictionary<string, double>();
+
+            this.CurrentStats = new Dictionary<string, double>();
+
+            this.ItemTaskQueue = new Queue<Task>();
+        }
+
+        public void SetDefaultDifficultyStats(string difficultyLevel, string statName, double statValue)
+        {
+            switch (difficultyLevel)
             {
-                {"Sleepiness", sleepiness},
-                {"Energy", energy},
-                {"Hunger", hunger},
-                {"Happiness", happiness},
-                {"Stress", stress},
-                {"Speed", speed},
-                {"BladderFullness", bladderFullness},
-                {"Hygiene", hygiene},
-                {"Health", health},
-                {"SocialStanding", socialStanding },
-                {"MentalHealth", mentalHealth }
-            };
+                case "difficulty_easy":
+                    this.DefaultStatsEasy.Add(statName, statValue);
+                    break;
+                case "difficulty_medium":
+                    this.DefaultStatsMedium.Add(statName, statValue);
+                    break;
+                case "difficulty_hard":
+                    this.DefaultStatsHard.Add(statName, statValue);
+                    break;
+                case "difficulty_extreme":
+                    this.DefaultStatsExtreme.Add(statName, statValue);
+                    break;
+            }
+        }
+
+        public void PrintAll()
+        {
+            Console.WriteLine("EASY:");
+            foreach(KeyValuePair<string, double> kvp in this.DefaultStatsEasy)
+            {
+                Console.WriteLine("\t - " + kvp.Key + ": " + kvp.Value);
+            }
+            Console.WriteLine("MEDIUM:");
+            foreach (KeyValuePair<string, double> kvp in this.DefaultStatsMedium)
+            {
+                Console.WriteLine("\t - " + kvp.Key + ": " + kvp.Value);
+            }
+            Console.WriteLine("HARD:");
+            foreach (KeyValuePair<string, double> kvp in this.DefaultStatsHard)
+            {
+                Console.WriteLine("\t - " + kvp.Key + ": " + kvp.Value);
+            }
+            Console.WriteLine("EXTREME:");
+            foreach (KeyValuePair<string, double> kvp in this.DefaultStatsExtreme)
+            {
+                Console.WriteLine("\t - " + kvp.Key + ": " + kvp.Value);
+            }
         }
     }
 }
